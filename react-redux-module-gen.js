@@ -94,4 +94,16 @@ export default function (state = defaultState, action) {
 
 fs.writeFileSync(path.join(currDir, module_name,"reducer.js"), reducer_contents);
 
+let selector_contents = `"use strict";
+
+//import { createSelector } from 'reselect';
+// import from reselect if you're using it
+
+import { name } from './constants';
+
+export const exampleStateSelector = state => state[name].exampleState;
+`;
+
+fs.writeFileSync(path.join(currDir, module_name,"selectors.js"), selector_contents);
+
 
