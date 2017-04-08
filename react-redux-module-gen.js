@@ -1,5 +1,4 @@
 #!/usr/local/bin/node
-"use strict";
 
 const fs = require('fs');
 const path = require('path');
@@ -24,22 +23,20 @@ fs.mkdirSync(path.join(currDir, module_name, "components"))
 
 
 // generate actionTypes
-let actionTypes_contents = `"use strict";
-
+let actionTypes_contents = `
 export const ACTION_NAME = "${module_name}/ACTION_NAME";
 `;
 
 fs.writeFileSync(path.join(currDir, module_name,"actionTypes.js"), actionTypes_contents);
 
 // generate actions
-let actions_contents = `"use strict";
-
+let actions_contents = `
 import * as actions from './actionTypes';
 
 export function actionName() {
-    return {
-        type: actions.ACTION_NAME
-    };
+  return {
+    type: actions.ACTION_NAME
+  };
 }
 `;
 
@@ -47,55 +44,51 @@ fs.writeFileSync(path.join(currDir, module_name,"actions.js"), actions_contents)
 
 
 // generate constants
-let constants_contents = `"use strict";
-
-export const name = "${module_name}";
+let constants_contents = `
+export const name = '${module_name}';
 `;
 
 fs.writeFileSync(path.join(currDir, module_name,"constants.js"), constants_contents);
 
 // generate index
-let index_contents = `"use strict";
-
+let index_contents = `
 import reducer from './reducer';
 import * as constants from './constants';
 
 export default {
-    constants,
-    reducer
+  constants,
+  reducer
 };
 `;
 
 fs.writeFileSync(path.join(currDir, module_name,"index.js"), index_contents);
 
 // generate reducer
-let reducer_contents = `"use strict";
-
+let reducer_contents = `
 import {
-    ACTION_NAME
-} from "./actionTypes";
+  ACTION_NAME
+} from './actionTypes';
 
 const defaultState = {
-    exampleState: 0
+  exampleState: 0
 };
 
 
 export default function (state = defaultState, action) {
-    switch (action.type) {
-    case ACTION_NAME:
-        return Object.assign({}, state, {
-            exampleState: state.exampleState + 1
-        });
-    default:
-        return state;
-    }
+  switch (action.type) {
+  case ACTION_NAME:
+    return Object.assign({}, state, {
+      exampleState: state.exampleState + 1
+    });
+  default:
+    return state;
+  }
 }
 `;
 
 fs.writeFileSync(path.join(currDir, module_name,"reducer.js"), reducer_contents);
 
-let selector_contents = `"use strict";
-
+let selector_contents = `
 //import { createSelector } from 'reselect';
 // import from reselect if you're using it
 
